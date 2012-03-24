@@ -1,7 +1,5 @@
 <?php get_header(); ?>
 
-<div class="article ten columns offset-by-two omega">
-
 <h1>Results for "<?php the_search_query() ?>".</h1>
 
 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
@@ -21,7 +19,4 @@
 
 <div class="navigation"><?php posts_nav_link('<span class="break"> </span>', "Newer results", "Older results"); ?></div>
 
-</div>
-
-<?php get_sidebar(); ?>
 <?php get_footer(); ?>

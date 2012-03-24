@@ -40,4 +40,7 @@
     <div class="sidebar four columns alpha">
     <?php get_sidebar(); ?>
     </div>
+    
+    <div id="article" class="ten columns offset-by-two omega">
+
 
