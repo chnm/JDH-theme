@@ -2,7 +2,17 @@
 
 <div id="article" class="ten columns offset-by-two omega">
 
-<h1>You are viewing entries marked '<?php single_cat_title(); ?>'.</h1>
+<?php 
+$curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : get_userdata(intval($author));
+?>
+
+<h1>Entries by <?php echo $curauth->first_name; ?> <?php echo $curauth->last_name; ?>.</h1>
+
+<div class="author-bio">
+
+    <?php echo nl2br($curauth->description); ?>
+    
+</div>
 
 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
     

@@ -66,7 +66,7 @@
                 -o-box-shadow: none;
             }
         
-        .article { 
+        #article { 
            background: none; 
            padding: 0; 
            min-height: inherit; 
@@ -82,7 +82,7 @@
 	   	
 	/* Mobile Landscape/Browser */
 	@media only screen and (min-width: 480px) and (max-width: 767px) {
-	    .article { background: none; min-height: inherit; }	    
+	    #article { background: none; min-height: inherit; }	    
 	    }
 	
 	/* Anything smaller than standard 960 */

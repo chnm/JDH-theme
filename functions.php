@@ -1,6 +1,15 @@
 <?php
 if ( function_exists('register_sidebar') )
     register_sidebar(array(
+        'name' => 'Left Sidebar',
+        'before_widget' => '',
+        'after_widget' => '',
+    'before_title' => '<div class="title"><h4>',
+        'after_title' => '</h4></div>',
+    ));    
+    
+    register_sidebar(array(
+        'name' => 'Footer',
         'before_widget' => '',
         'after_widget' => '',
         'before_title' => '<div class="title">',

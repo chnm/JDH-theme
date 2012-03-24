@@ -1,20 +1,17 @@
 <?php get_header(); ?>
 
-<div class="article ten columns offset-by-two omega">
+<div id="article" class="ten columns offset-by-two omega">
 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 
     <h1><?php the_title(); ?></h1>
-
-    <?php 
-        $authors = get_post_custom_values('article_author'); 
-        foreach ($authors as $key => $value) {
-            echo '<p class="author">'.$value.'</p>';
-        }
-    ?>
+    
+    <?php if(function_exists('coauthors')): ?>
+        <h4 class="author"><?php coauthors(',<br>'); ?></h4>
+    <?php else: ?>
+        <h4 class="author"><?php echo the_author_meta('first_name'); ?> <?php echo the_author_meta('last_name'); ?></h4>
+    <?php endif; ?>
     
     <?php the_content(); ?>
-    
-    <?php comments_template(); ?>
     
     <?php endwhile; else: ?>
     <p><?php _e('Sorry, no posts matched your criteria.'); ?></p>

@@ -3,7 +3,11 @@
 </div>
 
 <footer>
-    <nav class="container"><?php wp_nav_menu(array('menu_class' => 'container')); ?></nav>
+    <nav class="container">
+    <?php if ( !function_exists('dynamic_sidebar')
+        || !dynamic_sidebar('Footer') ) : ?>
+    <?php endif; ?>
+    </nav>
 </footer>
 
 <?php wp_footer(); ?>
