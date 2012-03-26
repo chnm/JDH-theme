@@ -343,8 +343,8 @@ footer {
     background-color: rgba(0,0,0,.07);
     display: block;
     width: 100%;
-    padding-left: 75px;
-    margin-left: -75px;    
+    padding-left: 10%;
+    margin-left: -10%;    
     }
     
     .comments-header:before {
@@ -501,6 +501,8 @@ footer {
     }
     
     .post:first-child { border-top: 1px solid #e8e8e8; }
+    
+    .post:only-of-type { border-bottom: 0; }
         
 .navigation {
     font-family: "Arvo", serif;
@@ -531,6 +533,27 @@ footer {
     font-size: 14px;
     margin-bottom: 40px;
     }
+    
+.author-bio h2:before, .author-bio h2:after,
+.author-posts h2:before, .author-posts h2:after {
+    content: "\a0 ";
+    background-color: rgba(0,0,0,.08);
+    display: block;
+    width: 100%;
+    padding-left: 10%;
+    margin-left: -10%;    
+    }
+    
+    .author-bio h2:before, .author-posts h2:before {
+        height: 3px;
+        margin-bottom: 10px;
+        }
+        
+    .author-bio h2:after, .author-posts h2:after {
+        height: 1px;
+        margin-top: 10px;
+        margin-bottom: 40px;
+        }
 
 
 /* Plugins
