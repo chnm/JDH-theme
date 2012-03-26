@@ -37,7 +37,14 @@
 
 <section id="content" class="container row">
 
-    <div class="sidebar four columns alpha">
-    <?php get_sidebar(); ?>
-    </div>
+    <div class="colleft">
+
+        <div class="sidebar four columns alpha col2">
+            <?php get_sidebar(); ?>
+        </div>
+
+        <div class="col1">
+        
+            <div id="article" class="ten columns offset-by-two omega">
+
 

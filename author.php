@@ -1,7 +1,5 @@
 <?php get_header(); ?>
 
-<div id="article" class="ten columns offset-by-two omega">
-
 <?php 
 $curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : get_userdata(intval($author));
 ?>
@@ -31,7 +29,4 @@ $curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : g
 
 <div class="navigation"><?php posts_nav_link('<span class="break"> </span>', "Newer results", "Older results"); ?></div>
 
-</div>
-
-<?php get_sidebar(); ?>
 <?php get_footer(); ?>
