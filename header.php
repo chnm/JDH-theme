@@ -35,16 +35,12 @@
 
 </header>
 
-<section id="content" class="container row">
+<section id="content" class="container row ">
 
-    <div class="colleft">
-
-        <div class="sidebar four columns alpha col2">
-            <?php get_sidebar(); ?>
-        </div>
-
-        <div class="col1">
+    <div class="sidebar four columns alpha">
+        <?php get_sidebar(); ?>
+    </div>
         
-            <div id="article" class="ten columns offset-by-two omega">
+    <div id="article" class="ten columns offset-by-two omega">
 
 
