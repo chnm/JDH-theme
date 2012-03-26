@@ -1,6 +1,5 @@
 <?php get_header(); ?>
 
-<div id="article" class="ten columns offset-by-two omega">
 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
         
     <h1><?php the_title(); ?></h1>

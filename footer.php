@@ -1,8 +1,8 @@
-    </div>
+    </div> <!-- ends article -->
+        
+</section> <!-- ends colmask -->
 
-</section>
-
-</div>
+</div> <!-- ends wrap -->
 
 <footer>
     <nav class="container">
