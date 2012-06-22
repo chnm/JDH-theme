@@ -3,6 +3,9 @@
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
 <title><?php wp_title(); ?> <?php bloginfo( 'name' ); ?></title>
+<link rel="icon" 
+      type="image/i" 
+      href="<?php bloginfo( 'template_directory' ); ?>/images/favicon.ico">
 <link rel="profile" href="http://gmpg.org/xfn/11" />
 <link rel="stylesheet" href="<?php bloginfo( 'stylesheet_url' ); ?>" type="text/css" media="screen" />
 <link rel="stylesheet" href="<?php bloginfo( 'template_directory' ); ?>/stylesheets/skeleton.css" type="text/css" media="screen" />
@@ -10,10 +13,13 @@
 <link href='http://fonts.googleapis.com/css?family=Arvo:400,400italic|Ubuntu:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <?php if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' ); ?>
-<?php wp_head(); ?>
+<?php wp_enqueue_script('modernizr.custom.20659', WP_CONTENT_URL . '/themes/jdh/javascripts/modernizr.custom.20659.js'); ?>
+<?php wp_enqueue_script('respond.min', WP_CONTENT_URL . '/themes/jdh/javascripts/respond.min.js'); ?>
+<?php wp_enqueue_script('selectivizr-min', WP_CONTENT_URL . '/themes/jdh/javascripts/selectivizr-min.js'); ?>
+<?php wp_head(); ?>  
 </head>
 
-<body>
+<body <?php body_class(); ?>>
 
 <div class="wrap">
 
@@ -35,16 +41,6 @@
 
 </header>
 
-<section id="content" class="container row">
-
-    <div class="colleft">
-
-        <div class="sidebar four columns alpha col2">
-            <?php get_sidebar(); ?>
-        </div>
-
-        <div class="col1">
-        
-            <div id="article" class="ten columns offset-by-two omega">
+<section id="content" class="container row ">
 
 

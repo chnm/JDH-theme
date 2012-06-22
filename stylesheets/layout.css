@@ -26,9 +26,11 @@
 	/* iPad Portrait/Browser */
 	@media only screen and (min-width: 768px) and (max-width: 991px) {
 
-        .comments-header:before, .comments-header:after, #comments li:after {
-	       padding-left: 50px;
-	       margin-left: -50px;
+        .comments-header:before, .comments-header:after, #comments li:after,
+        .author-bio h2:before, .author-bio h2:after,
+        .author-posts h2:before, .author-posts h2:after {
+	       padding-left: 7.5%;
+	       margin-left: -7.5%;
 	       }	
 	
 	}
@@ -77,6 +79,8 @@
 	       margin-left: 0;
 	       }
 	       
+        footer .container { text-align: left;}
+	       
 	   }
 	       
 	   	
@@ -96,10 +100,11 @@
 	
 	/* Mobile Only */
 	@media only screen and (max-width: 767px) and (max-device-width: 1000px) {
+        footer .container { text-align: left;}
 	    }
 	
 	/* Mobile Landscape Only */
-	@media only screen and (min-width: 480px) and (max-width: 767px) and (max-device-width: 1000px) {
+	@media only screen and (min-width: 480px) and (max-width: 767px) and (max-device-width: 1000px) {		
 	    }
 	
 
