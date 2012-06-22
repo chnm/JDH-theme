@@ -582,10 +582,10 @@ footer {
         }
 
 
-/* Front Page/Table of Contents
+/* Front Page
 ===========================*/
 
-.home .row, .page-template-table-of-contents-php .row {
+.home .row {
     background-image: none;
     }
     
