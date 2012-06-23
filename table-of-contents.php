@@ -45,7 +45,7 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
     $category = $categories[0]->term_id;
     endif;
 
-    $args = array( 'numberposts' => 2, 'category__and' => array($category, 8) );
+        $args = array( 'numberposts' => 2, 'post_type' => 'introduction', 'cat' => $category );
     $lastposts = get_posts( $args );
     $i = 0;
     foreach($lastposts as $post) : setup_postdata($post); ?>
@@ -95,7 +95,6 @@ foreach($subcategories as $subcategory) :
             
             /* We get all the posts in this subcategory unless they are in the "featured" category. */ 
             
-            $k = 0;                
             foreach($lastposts as $post) : setup_postdata($post); ?>
                 	<p><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a><br>
                     <?php if(function_exists('coauthors')): ?>
@@ -104,7 +103,6 @@ foreach($subcategories as $subcategory) :
                         <?php echo the_author_meta('first_name'); ?> <?php echo the_author_meta('last_name'); ?>
                     <?php endif; ?>
                     </p>
-                <?php $k++; ?>
             <?php endforeach; ?>
             
             
@@ -136,7 +134,6 @@ foreach($subcategories as $subcategory) :
             <h3><?php echo $subcategoryName; ?></h3>
             
             <?php                
-            $k = 0;
             foreach($lastposts as $post) : setup_postdata($post); ?>
                 <p><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a><br>
                     <?php if(function_exists('coauthors')): ?>
@@ -145,7 +142,6 @@ foreach($subcategories as $subcategory) :
                         <?php echo the_author_meta('first_name'); ?> <?php echo the_author_meta('last_name'); ?>
                     <?php endif; ?>
                 </p>
-                <?php $k++; ?>
             <?php endforeach; ?>                    
             
         </div>

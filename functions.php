@@ -54,4 +54,33 @@ function enable_category_taxonomy_for_pages() {
     register_taxonomy_for_object_type('category','page');
 }
 
+add_action( 'init', 'enable_category_taxonomy_for_introductions', 500 );
+
+function enable_category_taxonomy_for_introductions() {
+    register_taxonomy_for_object_type('category','introduction');
+}
+
+add_action( 'init', 'create_post_type' );
+function create_post_type() {
+	register_post_type( 'introduction',
+		array(
+			'labels' => array(
+				'name' => __( 'Introductions' ),
+				'singular_name' => __( 'Introductions' )
+			),
+		'public' => true,
+		'has_archive' => true,
+		)
+	);
+	add_post_type_support( 'introduction', array('excerpt', 'custom-fields', 'author', 'revisions') );
+}
+
+wp_enqueue_script('modernizr.custom.20659', get_template_directory_uri() . '/javascripts/modernizr.custom.20659.js',array(),'1.0',true);
+wp_enqueue_script('respond.min', get_template_directory_uri() . '/javascripts/respond.min.js',array(),'1.0',true);
+wp_enqueue_script('selectivizr-min', get_template_directory_uri() . '/javascripts/selectivizr-min.js',array(),'1.0',true);
+wp_enqueue_script('jquery.cookie', get_template_directory_uri() . '/javascripts/jquery.cookie.js',array(),'1.0',true);
+wp_enqueue_script('jquery.hoverIntent.minified', get_template_directory_uri() . '/javascripts/jquery.hoverIntent.minified.js',array(),'1.0',true);
+wp_enqueue_script('jquery.dcjqaccordion.2.7.min', get_template_directory_uri() . '/javascripts/jquery.dcjqaccordion.2.7.min.js',array(),'1.0',true);
+
+
 ?>

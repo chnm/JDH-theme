@@ -13,10 +13,28 @@
 <link href='http://fonts.googleapis.com/css?family=Arvo:400,400italic|Ubuntu:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 <?php if ( is_singular() && get_option( 'thread_comments' ) ) wp_enqueue_script( 'comment-reply' ); ?>
-<?php wp_enqueue_script('modernizr.custom.20659', WP_CONTENT_URL . '/themes/jdh/javascripts/modernizr.custom.20659.js'); ?>
-<?php wp_enqueue_script('respond.min', WP_CONTENT_URL . '/themes/jdh/javascripts/respond.min.js'); ?>
-<?php wp_enqueue_script('selectivizr-min', WP_CONTENT_URL . '/themes/jdh/javascripts/selectivizr-min.js'); ?>
+
 <?php wp_head(); ?>  
+
+<script type="text/javascript">
+jQuery(document).ready(function($) {
+    $('#menu-table-of-contents').dcAccordion({
+		eventType: 'click',
+		hoverDelay: 0,
+		menuClose: false,
+		autoClose: true,
+		saveState: false,
+		autoExpand: true,
+		classExpand: 'current-menu-item',
+		classDisable: '',
+		showCount: false,
+		disableLink: true,
+		cookie: 'dc_jqaccordion_widget-2',
+		speed: 'fast'
+    });
+});
+</script>
+
 </head>
 
 <body <?php body_class(); ?>>
