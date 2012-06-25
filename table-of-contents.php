@@ -47,24 +47,36 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
 
     $args = array( 'numberposts' => 2, 'post_type' => 'introduction', 'cat' => $category );
     $lastposts = get_posts( $args );
-    $i = 0;
-    foreach($lastposts as $post) : setup_postdata($post); ?>
-    	<?php if($i == 0): ?>
-        	<div class="intro-post six columns alpha">
-    	<?php else: ?>
-        	<div class="intro-post six columns omega">
-        <?php endif; ?>
-        	<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+    if(count($lastposts)==1): 
+        $post = $lastposts[0]; ?>
+        <div class="solo eight columns offset-by-two">
+        	<h3><a href="<?php get_permalink(); ?>"><?php the_title(); ?></a></h3>
             <?php if(function_exists('coauthors')): ?>
                 <h4 class="author-name"><?php coauthors(',<br>'); ?></h4>
             <?php else: ?>
                 <h4 class="author-name"><?php echo the_author_meta('first_name'); ?> <?php echo the_author_meta('last_name'); ?></h4>
             <?php endif; ?>
-        	<?php the_excerpt(); ?>
-        </div>	
-        <?php $i++; ?>
-    <?php endforeach; ?>
-
+            <?php the_excerpt(); ?>
+        </div>
+    <?php else:     
+        $i = 0;
+        foreach($lastposts as $post) : setup_postdata($post); ?>
+        	<?php if($i == 0): ?>
+            	<div class="intro-post six columns alpha">
+        	<?php else: ?>
+            	<div class="intro-post six columns omega">
+            <?php endif; ?>
+            	<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+                <?php if(function_exists('coauthors')): ?>
+                    <h4 class="author-name"><?php coauthors(',<br>'); ?></h4>
+                <?php else: ?>
+                    <h4 class="author-name"><?php echo the_author_meta('first_name'); ?> <?php echo the_author_meta('last_name'); ?></h4>
+                <?php endif; ?>
+            	<?php the_excerpt(); ?>
+            </div>	
+            <?php $i++; ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
 </div>
 
 

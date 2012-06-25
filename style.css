@@ -720,6 +720,14 @@ footer {
     font-size: 16px;
     text-transform: uppercase;
     }
+    
+.solo h3, .solo h4{
+    text-align: center;
+}
+
+.solo p {
+    text-align: justify;
+}
 
 /* Issue Archive
 ===========================*/
