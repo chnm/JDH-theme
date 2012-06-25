@@ -75,6 +75,8 @@ function create_post_type() {
 	add_post_type_support( 'introduction', array('excerpt', 'custom-fields', 'author', 'revisions') );
 }
 
+add_theme_support( 'post-thumbnails', array( 'post', 'page' ) );
+
 wp_enqueue_script('modernizr.custom.20659', get_template_directory_uri() . '/javascripts/modernizr.custom.20659.js',array(),'1.0',true);
 wp_enqueue_script('respond.min', get_template_directory_uri() . '/javascripts/respond.min.js',array(),'1.0',true);
 wp_enqueue_script('selectivizr-min', get_template_directory_uri() . '/javascripts/selectivizr-min.js',array(),'1.0',true);

@@ -317,7 +317,6 @@ footer {
 #article {
     padding-top: 70px;
     padding-bottom: 70px;
-    min-height: 600px;
     word-wrap: break-word;
     position: relative;
     }
@@ -720,6 +719,47 @@ footer {
 .quote-author {
     font-size: 16px;
     text-transform: uppercase;
+    }
+
+/* Issue Archive
+===========================*/
+
+.issue {
+    text-align: center;
+}
+
+#article .issue a {
+    border-bottom: 0;
+}
+    
+.issue-image {
+    max-height: 125px;
+    border: 1px solid #e8e8e8;
+    box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -o-box-sizing: border-box;
+    display: block;
+    overflow: hidden;
+    padding: 5px;
+    margin: 0 0 10px 0;
+    position: relative;
+
+}
+
+    .issue-image:after {
+        width: 100%;
+        height: 5px;
+        content: "";
+        background-color:#fff;
+        display: block;
+        position: absolute;
+            bottom: 0;        
+    }
+
+    .issue-image img {
+        width: 100%;
+        height: auto;
     }
         
 /* Search, Archive, and Category
