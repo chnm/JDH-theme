@@ -3,17 +3,47 @@
 global $wp_query;
 
 $currentPostId = (int) $wp_query->queried_object_id;
-$categories = get_the_category();
-$parent = get_category($categories[0]->category_parent);
+$categories = get_the_category($currentPostId);
+if($categories[0]->category_parent == 0) {
+    $parent = $categories[0];
+} else {
+    $parent = get_category($categories[0]->category_parent);
+    
+}
 $parentName = $parent->name;
 $parentId = $parent->term_id;
 $subcategories = get_terms( 'category', 'parent='.$parentId );
 
 ?>
 
-<h3>Table of Contents for <?php echo $parentName ?></h3>
+<h3>Table of Contents for <?php echo $parentName; ?></h3>
 
 <ul id="menu-table-of-contents" class="menu">
+
+    <li class="parent"><a href="<?php get_post_type_archive_link( 'introduction' ); ?>">Introductions</a>
+    
+        <ul class="sub-menu">
+        
+        <?php         
+        
+        $args = array( 'post_type' => 'introduction', 'cat' => $parentId );
+        $lastposts = get_posts( $args );
+        foreach($lastposts as $post) : setup_postdata($post);
+            if($post->ID == $currentPostId): ?>
+            <li class="current-menu-item"><a href="<?php the_permalink(); ?>"><?php the_title() ?></a><br>
+        	<?php else: ?>
+        	<li><a href="<?php the_permalink(); ?>"><?php the_title() ?></a><br>
+        	<?php endif; ?>
+            <?php if(function_exists('coauthors')):
+                coauthors(',<br>');
+            else:
+                echo the_author_meta('first_name') . ' ' . the_author_meta('last_name');
+            endif; ?>
+        	</li>        	            
+        <?php endforeach; ?>
+        </ul>
+        
+    </li>
 
 <?php     
     foreach($subcategories as $subcategory):

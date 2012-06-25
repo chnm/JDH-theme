@@ -586,7 +586,7 @@ footer {
 /* Front Page
 ===========================*/
 
-.home .row, .page-template-table-of-contents-php .row {
+.page .row {
     background-image: none;
     }
     

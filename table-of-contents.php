@@ -45,7 +45,7 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
     $category = $categories[0]->term_id;
     endif;
 
-        $args = array( 'numberposts' => 2, 'post_type' => 'introduction', 'cat' => $category );
+    $args = array( 'numberposts' => 2, 'post_type' => 'introduction', 'cat' => $category );
     $lastposts = get_posts( $args );
     $i = 0;
     foreach($lastposts as $post) : setup_postdata($post); ?>
