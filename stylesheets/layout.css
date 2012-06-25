@@ -58,8 +58,8 @@
         
         #searchform { width: 100%; float: none; }
         
-        .sidebar { margin-right: 0; padding: 70px 0 0 0; }
-        
+        .sidebar, .page h1 { margin-right: 0; padding: 70px 0 0 0; }
+                
         #content { 
             background: transparent; 
             box-shadow: none; 
