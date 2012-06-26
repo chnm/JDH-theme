@@ -285,8 +285,7 @@ footer {
     margin-bottom: 40px;
     }
 
-.page .row, .single .row, .search .row, .author .row,
-.category .row {
+.single .row {
     background:url('images/content-bg.jpg') #fbfbfb repeat-y;
     background-position: 25% 0;
         -webkit-background-position: 25% 0;

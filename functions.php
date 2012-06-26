@@ -54,6 +54,18 @@ function enable_category_taxonomy_for_pages() {
     register_taxonomy_for_object_type('category','page');
 }
 
+
+/* Flush rewrite rules for custom post types. */
+add_action( 'load-themes.php', 'frosty_flush_rewrite_rules' );
+
+/* Flush your rewrite rules */
+function frosty_flush_rewrite_rules() {
+	global $pagenow, $wp_rewrite;
+
+	if ( 'themes.php' == $pagenow && isset( $_GET['activated'] ) )
+		$wp_rewrite->flush_rules();
+}
+
 add_action( 'init', 'enable_category_taxonomy_for_introductions', 500 );
 
 function enable_category_taxonomy_for_introductions() {
@@ -72,6 +84,7 @@ function create_post_type() {
 		'has_archive' => true,
 		)
 	);
+	
 	add_post_type_support( 'introduction', array('excerpt', 'custom-fields', 'author', 'revisions') );
 }
 

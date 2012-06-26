@@ -45,7 +45,11 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
     $category = $categories[0]->term_id;
     endif;
 
-    $args = array( 'numberposts' => 2, 'post_type' => 'introduction', 'cat' => $category );
+    if ( is_user_logged_in() ) {
+	    $args = array( 'numberposts' => 2, 'post_type' => 'introduction', 'cat' => $category, 'post_status' => 'any' );
+	} else {
+		$args = array( 'numberposts' => 2, 'post_type' => 'introduction', 'cat' => $category );
+	}
     $lastposts = get_posts( $args );
     if(count($lastposts)==1): 
         $post = $lastposts[0]; ?>
@@ -89,8 +93,14 @@ foreach($subcategories as $subcategory) :
     $j++;
     $subcategoryId = $subcategory->term_id;
     $subcategoryName = $subcategory->name; 
-    $lastposts = get_posts( array('numberposts' => -1, 'category' => $subcategoryId, 'category__not_in' => 90) );
-    $featured = get_posts(array('category__and' => array($subcategoryId, 69)))
+    if ( is_user_logged_in() ) {
+	    $lastposts = get_posts( array('numberposts' => -1, 'category' => $subcategoryId, 'category__not_in' => 90, 'post_status' => 'any') );
+	} else {
+		$lastposts = get_posts( array('numberposts' => -1, 'category' => $subcategoryId, 'category__not_in' => 90) );
+	}
+    $featured = get_category_by_slug('featured');
+    $featuredId = $featured->term_id;
+    $featuredPosts = get_posts(array('category__and' => array($subcategoryId, $featuredId)));
     
     /* Every other subcategory uses a layout displaying articles on the right. */  ?>
 
@@ -123,10 +133,11 @@ foreach($subcategories as $subcategory) :
         <div class="toc-previews six columns offset-by-one omega">
             <?php 
             /* There should only be one featured post in this subcategory, and this is where we display it. */
-            if($featured): 
-                echo $featured[0]->post_content;
+            if($featuredPosts): 
+                echo $featuredPosts[0]->post_content;
             else:
                 echo '<p>Featured content post needs to be created for this category.</p>';
+                echo '<p>' . $featuredId . '</p>';
             endif; ?>
         </div> 
         
@@ -134,8 +145,8 @@ foreach($subcategories as $subcategory) :
         
         <div class="toc-previews six columns alpha">
             <?php 
-            if($featured): 
-                echo $featured[0]->post_content;                                    
+            if($featuredPosts): 
+                echo $featuredPosts[0]->post_content;                                    
             else:
                 echo '<p>Featured content post needs to be created for this category.</p>';
             endif; ?>
