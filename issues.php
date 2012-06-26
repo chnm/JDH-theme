@@ -11,10 +11,18 @@ Template Name: Issue Archive
 <h1><?php the_title(); ?></h1>
 
 <?php 
-$pages = get_pages(array(
-    'meta_key' => '_wp_page_template',
-    'meta_value' => 'table-of-contents.php'
-)); 
+if(is_user_logged_in()) {
+    $pages = get_pages(array(
+        'meta_key' => '_wp_page_template',
+        'meta_value' => 'table-of-contents.php',
+        'post_status' => 'publish,private'
+    )); 
+} else {
+    $pages = get_pages(array(
+        'meta_key' => '_wp_page_template',
+        'meta_value' => 'table-of-contents.php'
+    ));     
+}
 $i = 0;
 ?>
 

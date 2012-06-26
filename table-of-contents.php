@@ -46,7 +46,7 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
     endif;
 
     if ( is_user_logged_in() ) {
-	    $args = array( 'numberposts' => 2, 'post_type' => 'introduction', 'cat' => $category, 'post_status' => 'any' );
+	    $args = array( 'numberposts' => 2, 'post_type' => 'introduction', 'cat' => $category, 'post_status' => 'publish,private,draft,inherit' );
 	} else {
 		$args = array( 'numberposts' => 2, 'post_type' => 'introduction', 'cat' => $category );
 	}
@@ -80,27 +80,31 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
             </div>	
             <?php $i++; ?>
         <?php endforeach; ?>
+    <?php wp_reset_query(); ?>
     <?php endif; ?>
 </div>
 
 
 <?php /* This is where it gets ugly. This section checks for all subcategories under the parent issue category. */ 
 
-$subcategories = get_terms( 'category', 'parent='.$category );
+$subcategories = get_categories( array('child_of' => $category, 'hide_empty' => 0) );
 $j = 0;
 
 foreach($subcategories as $subcategory) :
     $j++;
     $subcategoryId = $subcategory->term_id;
     $subcategoryName = $subcategory->name; 
-    if ( is_user_logged_in() ) {
-	    $lastposts = get_posts( array('numberposts' => -1, 'category' => $subcategoryId, 'category__not_in' => 90, 'post_status' => 'any') );
-	} else {
-		$lastposts = get_posts( array('numberposts' => -1, 'category' => $subcategoryId, 'category__not_in' => 90) );
-	}
     $featured = get_category_by_slug('featured');
     $featuredId = $featured->term_id;
-    $featuredPosts = get_posts(array('category__and' => array($subcategoryId, $featuredId)));
+    if ( is_user_logged_in() ) {
+	    $lastArgs = array('category' => $subcategoryId, 'category__not_in' => $featuredId, 'post_status' => 'publish,private,draft,inherit' );
+	    $featuredPosts = get_posts(array('category__and' => array($subcategoryId, $featuredId), 'post_status' => 'public,draft'));
+	    
+	} else {
+		$lastArgs = array('category' => $subcategoryId, 'category__not_in' => $featuredId);
+		$featuredPosts = get_posts(array('category__and' => array($subcategoryId, $featuredId), 'post_status' => 'public'));		
+	}
+	$lastposts = get_posts($lastArgs);
     
     /* Every other subcategory uses a layout displaying articles on the right. */  ?>
 
@@ -137,7 +141,6 @@ foreach($subcategories as $subcategory) :
                 echo $featuredPosts[0]->post_content;
             else:
                 echo '<p>Featured content post needs to be created for this category.</p>';
-                echo '<p>' . $featuredId . '</p>';
             endif; ?>
         </div> 
         
