@@ -12,7 +12,7 @@ if($categories[0]->category_parent == 0) {
 }
 $parentName = $parent->name;
 $parentId = $parent->term_id;
-$subcategories = get_terms( 'category', 'parent='.$parentId );
+$subcategories = get_terms( 'category', array('parent' => $parentId, 'hide_empty' => 0));
 
 ?>
 
