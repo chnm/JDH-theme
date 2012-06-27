@@ -15,12 +15,14 @@ if(is_user_logged_in()) {
     $pages = get_pages(array(
         'meta_key' => '_wp_page_template',
         'meta_value' => 'table-of-contents.php',
+        'sort_order' => 'desc',
         'post_status' => 'publish,private'
     )); 
 } else {
     $pages = get_pages(array(
         'meta_key' => '_wp_page_template',
-        'meta_value' => 'table-of-contents.php'
+        'meta_value' => 'table-of-contents.php',
+        'sort_order' => 'desc'
     ));     
 }
 $i = 0;
