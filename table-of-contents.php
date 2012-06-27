@@ -14,18 +14,36 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
 
     the_content(); 
     
-    $pdf_values = get_post_custom_values('pdf_url');
-    $pdf_url = $pdf_values[0]; 
+    $pdf_url = null;
+    if($pdf_values = get_post_custom_values('pdf_url')) {
+        $pdf_url = $pdf_values[0]; 
+    }
     
-    $epub_values = get_post_custom_values('epub_url');
-    $epub_url = $epub_values[0]; 
+    $epub_url = null;
+    if($epub_values = get_post_custom_values('epub_url')) {
+        $epub_url = $epub_values[0]; 
+    }
+
+    $ibook_url = null;
+    if($ibook_values = get_post_custom_values('ibook_url')) {
+        $ibook_url = $ibook_values[0]; 
+    }
+
 
 ?>
 
     <div class="downloads">
         <p>Available for download</p>
+        <?php if($pdf_url): ?>
         <a href="<?php echo $pdf_url; ?>"><img src="<?php bloginfo('template_directory'); ?>/images/pdf.png" alt="pdf download"></a>
+        <?php endif; ?>
+        <?php if($epub_url): ?>
         <a href="<?php echo $epub_url; ?>"><img src="<?php bloginfo('template_directory'); ?>/images/epub.png" alt="epub download"></a>
+        <?php endif; ?>
+        <?php if($ibook_url): ?>
+        <a href="<?php echo $ibook_url; ?>"><img src="<?php bloginfo('template_directory'); ?>/images/ibook.png" alt="ibook download"></a>
+        <?php endif; ?>
+
     </div>
 
 <?php endwhile; else: ?>
