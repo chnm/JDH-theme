@@ -50,5 +50,7 @@ $subcategories = get_terms( 'category', 'parent='.$parentId );
         </ul>
     </li>
 <?php endforeach; ?>   
-
+<?php if($authors = get_permalink( get_page_by_path( 'authors' ))): ?>
+    <li><a href="<?php echo $authors; ?>">Authors</a></li>
+<?php endif; ?>
 </ul>

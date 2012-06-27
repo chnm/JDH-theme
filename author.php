@@ -1,10 +1,7 @@
 <?php get_header(); ?>
 
-<div class="sidebar four columns alpha">
-    <?php get_sidebar(); ?>
-</div>
-    
-<div id="article" class="ten columns offset-by-two omega">
+
+<div id="article" class="twelve columns offset-by-two">
 
 <?php 
 $curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : get_userdata(intval($author));
