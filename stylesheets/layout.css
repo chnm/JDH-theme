@@ -98,6 +98,11 @@
         .sidebar, .page h1, .author h1 { margin-right: 0; padding: 70px 0 0 0; }
         
         .author .gravatar { margin: 70px 10px 0 0; }
+        
+        .front-page h1 {
+            font-size: 30px;
+            padding: 0;
+        }
                 
         #content { 
             background: transparent; 
