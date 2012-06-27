@@ -9,6 +9,17 @@ Version: 0.1
 /* Global elements 
 ===========================*/
 
+@font-face {
+	font-family: 'IcoMoon';
+	src: url('fonts/IcoMoon.eot');
+	src: url('fonts/IcoMoon.eot?#iefix') format('embedded-opentype'),
+		url('fonts/IcoMoon.svg#IcoMoon') format('svg'),
+		url('fonts/IcoMoon.woff') format('woff'),
+		url('fonts/IcoMoon.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -76,22 +87,26 @@ header nav a:link, header nav a:visited {
     width: 100%;
     padding: 0 10px;   
     }
-    
-header nav ul {
-    background-color: #681367;
+
+header nav {
     box-shadow: inset 0px -3px 5px rgba(0,0,0,.2);
         -webkit-box-shadow: inset 0px -3px 5px rgba(0,0,0,.2);
         -moz-box-shadow: inset 0px -3px 5px rgba(0,0,0,.2);
         -o-box-shadow: inset 0px -3px 5px rgba(0,0,0,.2);
+    background-color: #681367;
+    overflow: auto;
     clear: both;
-    display: block;
+    position: relative;
+    z-index: 1000;    
+}
+    
+header nav ul {
+    clear: both;
     font-size: 14px;
     list-style-type: none;
     overflow: auto;
     margin: 0;
     padding: 0;
-    position: relative;
-    z-index: 1000;
     }
     
     header nav ul li {
@@ -115,8 +130,33 @@ header nav ul {
         
         header nav ul li:hover {
             background-color: #9B3C80;
-            border-right: 1px solid rgba(255,255,255,0.01);
             }
+            
+header nav .tabs {
+    float: left;
+    display: inline-block;
+}
+
+    header nav .tabs li:hover { border-right: 1px solid rgba(255,255,255,0.01); }
+
+header nav .social {
+    float: right;
+}
+
+    header nav .social li {
+        border-right: 0;
+        border-left: 1px solid rgba(255,255,255,.07);
+    }
+    
+    header nav .social li:hover { border-left: 1px solid rgba(255,255,255,0.01); }    
+        
+        header nav .social li .RSS:before {
+            content: "\28";
+            font-family: "IcoMoon";
+            display: inline-block;
+            margin: 0 5px 0 0;
+            text-indent: 0;
+        }
         
 header .current_page_item {
     background-color: #fbfbfb !important;
@@ -130,7 +170,6 @@ header .current_page_item {
     header .current_page_item a:link { color: #671366; }
     header .current_page_item a:visited { color: #653E66; }
     header .current_page_item a:hover, header .current_page_item a:active{ color: #9B3C80; }
-
 
 #searchform {
     float: right;

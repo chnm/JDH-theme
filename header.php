@@ -52,7 +52,11 @@ jQuery(document).ready(function($) {
         <?php get_search_form(); ?>    
 
         <nav>        
-            <?php wp_nav_menu( array( 'theme_location' => 'main-menu', 'container_class' => 'tabs' ) ); ?>
+            <ul class="social">
+                <li><a href="<?php echo bloginfo('rss_url'); ?>" class="RSS">Subscribe to the RSS</a></li>
+            </ul>
+
+            <?php wp_nav_menu( array( 'theme_location' => 'main-menu', 'container_class' => 'tabs' ) ); ?>            
         </nav>
         
     </div>
