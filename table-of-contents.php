@@ -56,8 +56,6 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
 
 <div class="introduction">
 
-<h2>Introductions</h2>
-
 <?php 
     if(has_category()):
     $categories = get_the_category(); 
@@ -71,10 +69,14 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
 	} else {
 		$args = array( 'numberposts' => 2, 'cat' => $introId );
 	}
-    $lastposts = get_posts( $args );
+    $lastposts = get_posts( $args ); ?>
+    
+    <h2><?php echo $intro[0]->name; ?></h2>
 
-    if(count($lastposts)==1): 
+
+    <?php if(count($lastposts)==1): 
         $post = $lastposts[0]; ?>
+        
         <div class="solo eight columns offset-by-two">
         	<h3><a href="<?php echo get_permalink(); ?>"><?php the_title(); ?></a></h3>
             <?php if(function_exists('coauthors')): ?>

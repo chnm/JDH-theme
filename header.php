@@ -53,7 +53,7 @@ jQuery(document).ready(function($) {
 
         <nav>        
             <ul class="social">
-                <li><a href="<?php echo bloginfo('rss_url'); ?>" class="RSS">Subscribe to the RSS</a></li>
+                <li><a href="http://feeds.feedburner.com/journalofdigitalhumanities" class="RSS">Subscribe to the RSS</a></li>
             </ul>
 
             <?php wp_nav_menu( array( 'theme_location' => 'main-menu', 'container_class' => 'tabs' ) ); ?>            
