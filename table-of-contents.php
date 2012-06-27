@@ -41,53 +41,53 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
 <h2>Introductions</h2>
 
 <?php 
-    $introId = null;
     if(has_category()):
     $categories = get_the_category(); 
     $category = $categories[0]->term_id;
     endif;
     
-    if($intro = get_terms('category', array('name__like' => 'Introduction', 'parent' => $category))): 
-        $introId = $intro[0]->term_id;
-        
+    $intro = get_terms('category', array('name__like' => 'Introduction', 'parent' => $category, 'hide_empty' => 0));
+    $introId = $intro[0]->term_id;
         if ( is_user_logged_in() ) {
-    	    $args = array( 'numberposts' => 2, 'cat' => $introId, 'post_status' => 'publish,private,draft,inherit' );
-    	} else {
-    		$args = array( 'numberposts' => 2, 'cat' => $introId );
-    	}
-        $lastposts = get_posts( $args );
-        if(count($lastposts)==1): 
-            $post = $lastposts[0]; ?>
-            <div class="solo eight columns offset-by-two">
-            	<h3><a href="<?php echo get_permalink(); ?>"><?php the_title(); ?></a></h3>
+	    $args = array( 'numberposts' => 2, 'cat' => $introId, 'post_status' => 'publish,private,draft,inherit' );
+	} else {
+		$args = array( 'numberposts' => 2, 'cat' => $introId );
+	}
+    $lastposts = get_posts( $args );
+
+    if(count($lastposts)==1): 
+        $post = $lastposts[0]; ?>
+        <div class="solo eight columns offset-by-two">
+        	<h3><a href="<?php echo get_permalink(); ?>"><?php the_title(); ?></a></h3>
+            <?php if(function_exists('coauthors')): ?>
+                <h4 class="author-name"><?php coauthors(',<br>'); ?></h4>
+            <?php else: ?>
+                <h4 class="author-name"><?php echo the_author_meta('first_name'); ?> <?php echo the_author_meta('last_name'); ?></h4>
+            <?php endif; ?>
+            <?php if(get_the_excerpt()): ?>
+                <?php the_excerpt(); ?>
+            <?php endif; ?>
+        </div>
+    <?php elseif(count($lastposts) == 0): ?>
+            <p>No introduction posts found.</p>
+    <?php else:     
+        $i = 0;
+        foreach($lastposts as $post) : setup_postdata($post); ?>
+        	<?php if($i == 0): ?>
+            	<div class="intro-post six columns alpha">
+        	<?php else: ?>
+            	<div class="intro-post six columns omega">
+            <?php endif; ?>
+            	<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
                 <?php if(function_exists('coauthors')): ?>
                     <h4 class="author-name"><?php coauthors(',<br>'); ?></h4>
                 <?php else: ?>
                     <h4 class="author-name"><?php echo the_author_meta('first_name'); ?> <?php echo the_author_meta('last_name'); ?></h4>
                 <?php endif; ?>
-                <?php the_excerpt(); ?>
-            </div>
-        <?php else:     
-            $i = 0;
-            foreach($lastposts as $post) : setup_postdata($post); ?>
-            	<?php if($i == 0): ?>
-                	<div class="intro-post six columns alpha">
-            	<?php else: ?>
-                	<div class="intro-post six columns omega">
-                <?php endif; ?>
-                	<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-                    <?php if(function_exists('coauthors')): ?>
-                        <h4 class="author-name"><?php coauthors(',<br>'); ?></h4>
-                    <?php else: ?>
-                        <h4 class="author-name"><?php echo the_author_meta('first_name'); ?> <?php echo the_author_meta('last_name'); ?></h4>
-                    <?php endif; ?>
-                	<?php the_excerpt(); ?>
-                </div>	
-                <?php $i++; ?>
-            <?php endforeach; ?>
-        <?php endif; ?>
-        <?php else: ?>
-            <p>No introduction posts found.</p>
+            <?php the_excerpt(); ?>
+            </div>	
+            <?php $i++; ?>
+        <?php endforeach; ?>
     <?php endif; ?>
 
 </div>
