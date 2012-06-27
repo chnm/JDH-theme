@@ -1,10 +1,6 @@
 <?php get_header(); ?>
-
-<div class="sidebar four columns alpha">
-    <?php get_sidebar(); ?>
-</div>
     
-<div id="article" class="ten columns offset-by-two omega">
+<div id="article" class="twelve columns offset-by-two">
 
 <h1>You are viewing entries marked '<?php single_cat_title(); ?>'.</h1>
 
