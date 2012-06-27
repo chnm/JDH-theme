@@ -154,6 +154,7 @@ header nav .social {
             content: "\28";
             font-family: "IcoMoon";
             display: inline-block;
+            line-height: 39px;
             margin: 0 5px 0 0;
             text-indent: 0;
         }
