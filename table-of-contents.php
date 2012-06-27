@@ -208,8 +208,8 @@ foreach($subcategories as $subcategory) :
     
     </div>                      
 
-    <p class="issn">ISSN 2165-6673</p>
-
 <?php endforeach; ?>
+
+    <p class="issn">ISSN 2165-6673</p>
 
 <?php get_footer(); ?>                 
