@@ -28,7 +28,11 @@ $curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : g
 <div class="author-posts">
 
     <h2>Entries</h2>
-
+    
+<?php 
+$featured = get_category_by_slug('featured');
+query_posts(array('exclude' => $featured->term_id));
+?>
 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
     
     <div class="post">

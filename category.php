@@ -21,5 +21,4 @@
 
 <div class="navigation"><?php posts_nav_link('<span class="break"> </span>', "Previous results", "Older Next"); ?></div>
 
-<?php get_sidebar(); ?>
 <?php get_footer(); ?>
