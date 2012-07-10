@@ -129,11 +129,11 @@ foreach($subcategories as $subcategory) :
     $featured = get_category_by_slug('featured');
     $featuredId = $featured->term_id;
     if ( is_user_logged_in() ) {
-	    $lastArgs = array('category' => $subcategoryId, 'category__not_in' => $featuredId, 'post_status' => 'publish,private,draft,inherit' );
+	    $lastArgs = array('category' => $subcategoryId, 'category__not_in' => $featuredId, 'post_status' => 'publish,private,draft,inherit', 'numberposts' => -1 );
 	    $featuredPosts = get_posts(array('category__and' => array($subcategoryId, $featuredId), 'post_status' => 'publish,draft,private,inherit'));
 	    
 	} else {
-		$lastArgs = array('category' => $subcategoryId, 'category__not_in' => $featuredId);
+		$lastArgs = array('category' => $subcategoryId, 'category__not_in' => $featuredId, 'numberposts' => -1);
 		$featuredPosts = get_posts(array('category__and' => array($subcategoryId, $featuredId), 'post_status' => 'public'));		
 	}
 	$lastposts = get_posts($lastArgs);
