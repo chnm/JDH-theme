@@ -24,11 +24,13 @@ $subcategories = get_terms( 'category', array('parent' => $parentId, 'hide_empty
     foreach($subcategories as $subcategory):
     $subcategoryId = $subcategory->term_id;
     $subcategoryName = $subcategory->name; 
+    $featuredCategory = get_category_by_slug('featured');
+    $featuredId = $featuredCategory->term_id;
     
     if(is_user_logged_in()) {
-        $lastposts = get_posts( array('numberposts' => -1, 'category' => $subcategoryId, 'category__not_in' => 90, 'post_status' => 'publish,private,draft,inherit') );
+        $lastposts = get_posts( array('numberposts' => -1, 'category' => $subcategoryId, 'category__not_in' => $featuredId, 'post_status' => 'publish,private,draft,inherit') );
     } else {
-        $lastposts = get_posts( array('numberposts' => -1, 'category' => $subcategoryId, 'category__not_in' => 90) );
+        $lastposts = get_posts( array('numberposts' => -1, 'category' => $subcategoryId, 'category__not_in' => $featuredId) );
     }
     
 ?>
