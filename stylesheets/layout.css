@@ -26,19 +26,12 @@
 	/* iPad Portrait/Browser */
 	@media only screen and (min-width: 768px) and (max-width: 991px) {
 
-        .comments-header:before, .comments-header:after, #comments li:after,
+        .comments-header:before, .comments-header:after, #comments li:after
         .author-bio h2:before, .author-bio h2:after,
         .author-posts h2:before, .author-posts h2:after {
 	       padding-left: 7.5%;
 	       margin-left: -7.5%;
-	       }
-	       
-        .author .author-bio h2:before, .author .author-bio h2:after,
-        .author .author-posts h2:before, .author .author-posts h2:after {
-            padding-left: 0;
-            margin-left: 0;
-        }	       	
-	
+	       }	
 	}
 	
 	/* Mobile/Browser */

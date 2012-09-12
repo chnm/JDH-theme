@@ -877,15 +877,9 @@ footer {
         margin-bottom: 40px;
         }
         
-.author h1 {
+.author-name {
     line-height: 62px;
     }
-    
-.author .author-bio h2:before, .author .author-bio h2:after,
-.author .author-posts h2:before, .author .author-posts h2:after {
-    padding-left: 0;
-    margin-left: 0;
-}
 
 
 /* Plugins

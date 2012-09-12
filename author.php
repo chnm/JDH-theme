@@ -8,10 +8,12 @@ $curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : g
 ?>
 
 <div class="gravatar">
-    <?php echo get_avatar($curauth->ID, $size = '52', $default = 'http://www.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536'); ?>
+    <div><?php echo get_avatar($curauth->ID, $size = '52', $default = 'http://www.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536'); ?></div>
 </div>
 
-<h1><?php echo $curauth->first_name; ?> <?php echo $curauth->last_name; ?></h1>
+<h1 class="author-name"><?php echo $curauth->first_name; ?> <?php echo $curauth->last_name; ?></h1>
+
+<?php if(the_author_meta('description')): ?>
 
 <?php if($curauth->description): ?>
 
