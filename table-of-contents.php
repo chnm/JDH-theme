@@ -58,27 +58,25 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
 
 <?php 
     if(has_category()):
-    $categories = get_the_category(); 
-    $category = $categories[0]->term_id;
+    $issueCategories = get_the_category(); 
+    $issueCategory = $issueCategories[0]->term_id;
     endif;
     
-    $intro = get_terms('category', array('name__like' => 'Introduction', 'parent' => $category, 'hide_empty' => 0));
+    $intro = get_terms('category', array('name__like' => 'Introduction', 'parent' => $issueCategory, 'hide_empty' => 0));
     $introId = $intro[0]->term_id;
         if ( is_user_logged_in() ) {
-	    $args = array( 'numberposts' => 2, 'cat' => $introId, 'post_status' => 'publish,private,draft,inherit' );
-	} else {
-		$args = array( 'numberposts' => 2, 'cat' => $introId );
-	}
+        $args = array( 'numberposts' => 2, 'cat' => $introId, 'post_status' => 'publish,private,draft,inherit' );
+    } else {
+        $args = array( 'numberposts' => 2, 'cat' => $introId );
+    }
     $lastposts = get_posts( $args ); ?>
     
     <h2><?php echo $intro[0]->name; ?></h2>
 
-
-    <?php if(count($lastposts)==1): 
-        $post = $lastposts[0]; ?>
-        
+    <?php if(count($lastposts)==1): ?>
+        <?php $post = $lastposts[0]; ?>
         <div class="solo eight columns offset-by-two">
-        	<h3><a href="<?php echo get_permalink(); ?>"><?php the_title(); ?></a></h3>
+            <h3><a href="<?php echo get_permalink(); ?>"><?php the_title(); ?></a></h3>
             <?php if(function_exists('coauthors')): ?>
                 <h4 class="author-name"><?php coauthors(',<br>'); ?></h4>
             <?php else: ?>
@@ -93,19 +91,19 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
     <?php else:     
         $i = 0;
         foreach($lastposts as $post) : setup_postdata($post); ?>
-        	<?php if($i == 0): ?>
-            	<div class="intro-post six columns alpha">
-        	<?php else: ?>
-            	<div class="intro-post six columns omega">
+            <?php if($i == 0): ?>
+                <div class="intro-post six columns alpha">
+            <?php else: ?>
+                <div class="intro-post six columns omega">
             <?php endif; ?>
-            	<h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+                <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
                 <?php if(function_exists('coauthors')): ?>
                     <h4 class="author-name"><?php coauthors(',<br>'); ?></h4>
                 <?php else: ?>
                     <h4 class="author-name"><?php echo the_author_meta('first_name'); ?> <?php echo the_author_meta('last_name'); ?></h4>
                 <?php endif; ?>
             <?php the_excerpt(); ?>
-            </div>	
+            </div>    
             <?php $i++; ?>
         <?php endforeach; ?>
     <?php endif; ?>
@@ -113,30 +111,43 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
 </div>
 
 
-<?php /* This is where it gets ugly. This section checks for all subcategories under the parent issue category. */ 
+<?php
 
 if($introId) {
-    $subcategories = get_categories( array('child_of' => $category, 'hide_empty' => 0, 'exclude' => $introId) );
+    $categories = get_categories( array('parent' => $issueCategory, 'hide_empty' => 0, 'exclude' => $introId) );
 } else {
-    $subcategories = get_categories( array('child_of' => $category, 'hide_empty' => 0) );
+    $categories = get_categories( array('parent' => $issueCategory, 'hide_empty' => 0) );
 }
 
 $j = 0;
-foreach($subcategories as $subcategory) :
+foreach($categories as $category) :
+
     $j++;
-    $subcategoryId = $subcategory->term_id;
-    $subcategoryName = $subcategory->name; 
+
+    $categoryId = $category->term_id;
+    $categoryName = $category->name; 
+
+    $subcategories = get_categories( array('parent' => $categoryId, 'hide_empty' => 0) );
+
     $featured = get_category_by_slug('featured');
     $featuredId = $featured->term_id;
+
+    $excludeIds = array();
+    for ($k = 0; $k < count($subcategories); $k++) {
+        $excludeIds[$k] = $subcategories[$k]->term_id;
+    }
+    array_push($featuredId, $excludeIds);
+
     if ( is_user_logged_in() ) {
-	    $lastArgs = array('category' => $subcategoryId, 'category__not_in' => $featuredId, 'post_status' => 'publish,private,draft,inherit', 'numberposts' => -1 );
-	    $featuredPosts = get_posts(array('category__and' => array($subcategoryId, $featuredId), 'post_status' => 'publish,draft,private,inherit'));
-	    
-	} else {
-		$lastArgs = array('category' => $subcategoryId, 'category__not_in' => $featuredId, 'numberposts' => -1);
-		$featuredPosts = get_posts(array('category__and' => array($subcategoryId, $featuredId), 'post_status' => 'public'));		
-	}
-	$lastposts = get_posts($lastArgs);
+        $lastArgs = array('category' => $categoryId, 'category__not_in' => $excludeIds, 'post_status' => 'publish,private,draft,inherit', 'numberposts' => -1 );
+        $featuredPosts = get_posts(array('category__and' => array($categoryId, $featuredId), 'post_status' => 'publish,draft,private,inherit'));
+        
+    } else {
+        $lastArgs = array('category' => $categoryId, 'category__not_in' => $excludeIds, 'numberposts' => -1);
+        $featuredPosts = get_posts(array('category__and' => array($categoryId, $featuredId), 'post_status' => 'public'));        
+    }
+    
+    $lastposts = get_posts($lastArgs);
     
     /* Every other subcategory uses a layout displaying articles on the right. */  ?>
 
@@ -147,23 +158,23 @@ foreach($subcategories as $subcategory) :
                 
         <div class="five columns alpha">
         
-            <h3><?php echo $subcategoryName; ?></h3>
+            <h3><?php echo $categoryName; ?></h3>
             
-            <?php
+            <?php if($subcategories): ?>
+                <?php $l = 1; ?>
+                <?php foreach($subcategories as $subcategory): ?>
+                    <?php $subcategoryPosts = get_posts(array('category' => $subcategory->term_id)); ?>
+                    <h4><?php echo $l . '. ' . $subcategory->name; ?></h4>
+                    <?php jdh_toc_list_posts($subcategoryPosts); ?>
+                    <?php $l++; ?>
+                <?php endforeach; ?>
+                <?php if($lastposts): ?>
+                    <h4><?php echo $l; ?>. Other</h4>
+                <?php endif; ?>
+            <?php endif; ?>
             
-            /* We get all the posts in this subcategory unless they are in the "featured" category. */ 
-            
-            foreach($lastposts as $post) : setup_postdata($post); ?>
-                	<p><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a><br>
-                    <?php if(function_exists('coauthors')): ?>
-                        <?php coauthors(',<br>'); ?>
-                    <?php else: ?>
-                        <?php echo the_author_meta('first_name'); ?> <?php echo the_author_meta('last_name'); ?>
-                    <?php endif; ?>
-                    </p>
-            <?php endforeach; ?>
-            
-            
+            <?php jdh_toc_list_posts($lastposts); ?>
+                        
         </div>
         
         <div class="toc-previews six columns offset-by-one omega">
@@ -189,18 +200,22 @@ foreach($subcategories as $subcategory) :
         
         <div class="five columns offset-by-one omega">
         
-            <h3><?php echo $subcategoryName; ?></h3>
+            <h3><?php echo $categoryName; ?></h3>
             
-            <?php                
-            foreach($lastposts as $post) : setup_postdata($post); ?>
-                <p><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a><br>
-                    <?php if(function_exists('coauthors')): ?>
-                        <?php coauthors(',<br>'); ?>
-                    <?php else: ?>
-                        <?php echo the_author_meta('first_name'); ?> <?php echo the_author_meta('last_name'); ?>
-                    <?php endif; ?>
-                </p>
-            <?php endforeach; ?>                    
+            <?php if($subcategories): ?>
+                <?php $l = 1; ?>
+                <?php foreach($subcategories as $subcategory): ?>
+                    <?php $subcategoryPosts = get_posts(array('category' => $subcategory->term_id)); ?>
+                    <h4><?php echo $l . '. ' . $subcategory->name; ?></h4>
+                    <?php jdh_toc_list_posts($subcategoryPosts); ?>
+                    <?php $l++; ?>
+                <?php endforeach; ?>
+                <?php if($lastposts): ?>
+                    <h4><?php echo $l; ?>. Other</h4>
+                <?php endif; ?>
+            <?php endif; ?>
+            
+            <?php jdh_toc_list_posts($lastposts); ?>
             
         </div>
         

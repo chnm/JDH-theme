@@ -17,6 +17,57 @@ function register_my_menus() {
   );
 }
 
+/**
+ * Taken from http://alex.leonard.ie/2011/04/20/wordpress-get-id-of-top-level-parent-category/
+ **/
+
+function jdh_category_top_parent_id ($catid) {
+ while ($catid) {
+  $cat = get_category($catid); // get the object for the catid
+  $catid = $cat->category_parent; // assign parent ID (if exists) to $catid
+  // the while loop will continue whilst there is a $catid
+  // when there is no longer a parent $catid will be NULL so we can assign our $catParent
+  $catParent = $cat->cat_ID;
+ }
+return $catParent;
+}
+
+function jdh_nested_subcategories($categoryPosts, $currentPostId, $parentCatId) {
+    global $post;
+    foreach($categoryPosts as $post) {
+        setup_postdata($post);
+        $postCategories = get_the_category();
+        $lastCategory = $postCategories[0];
+        if($lastCategory->term_id == $parentCatId) {
+            if($post->ID == $currentPostId) {
+                echo '<li class="current-menu-item"><a href="' . get_permalink() . '">' . $post->post_title . '</a><br>';
+            } else {
+                echo '<li><a href="' . get_permalink() . '">' . $post->post_title . '</a><br>';
+            }
+            if(function_exists('coauthors')) {
+                coauthors(',<br>');
+            } else {
+                echo the_author_meta('first_name') . ' ' . the_author_meta('last_name');
+            }
+            echo '</li>';
+        }
+    }
+}
+
+function jdh_toc_list_posts($posts) {
+    global $post;
+    foreach($posts as $post) {
+        setup_postdata($post);
+        echo '<p><a href="' . get_permalink() . '">' . $post->post_title . '</a><br>';
+        if(function_exists('coauthors')) {
+            coauthors(',<br>');
+        } else {
+            echo the_author_meta('first_name') . ' ' . the_author_meta('last_name');
+        }
+        echo '</p>';
+    }
+}
+
 add_action( 'init', 'register_my_menus' );
 
 add_theme_support( 'post-thumbnails', array( 'post', 'page' ) );
