@@ -37,7 +37,7 @@ function jdh_nested_subcategories($categoryPosts, $currentPostId, $parentCatId) 
     foreach($categoryPosts as $post) {
         setup_postdata($post);
         $postCategories = get_the_category();
-        $lastCategory = $postCategories[0];
+        $lastCategory = end($postCategories);
         if($lastCategory->term_id == $parentCatId) {
             if($post->ID == $currentPostId) {
                 echo '<li class="current-menu-item"><a href="' . get_permalink() . '">' . $post->post_title . '</a><br>';
