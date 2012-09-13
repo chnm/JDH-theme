@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <meta charset="<?php bloginfo( 'charset' ); ?>" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+<meta name="viewport" content="width=device-width, initial-scale=1 /> 
 <title><?php wp_title(); ?> <?php bloginfo( 'name' ); ?></title>
 <link rel="icon" 
       type="image/i" 
