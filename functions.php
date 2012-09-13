@@ -36,21 +36,17 @@ function jdh_nested_subcategories($categoryPosts, $currentPostId, $parentCatId) 
     global $post;
     foreach($categoryPosts as $post) {
         setup_postdata($post);
-        $postCategories = get_the_category();
-        $lastCategory = end($postCategories);
-        if($lastCategory->term_id == $parentCatId) {
-            if($post->ID == $currentPostId) {
-                echo '<li class="current-menu-item"><a href="' . get_permalink() . '">' . $post->post_title . '</a><br>';
-            } else {
-                echo '<li><a href="' . get_permalink() . '">' . $post->post_title . '</a><br>';
-            }
-            if(function_exists('coauthors')) {
-                coauthors(',<br>');
-            } else {
-                echo the_author_meta('first_name') . ' ' . the_author_meta('last_name');
-            }
-            echo '</li>';
+        if($post->ID == $currentPostId) {
+            echo '<li class="current-menu-item"><a href="' . get_permalink() . '">' . $post->post_title . '</a><br>';
+        } else {
+            echo '<li><a href="' . get_permalink() . '">' . $post->post_title . '</a><br>';
         }
+        if(function_exists('coauthors')) {
+            coauthors(',<br>');
+        } else {
+            echo the_author_meta('first_name') . ' ' . the_author_meta('last_name');
+        }
+        echo '</li>';
     }
 }
 

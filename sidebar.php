@@ -26,17 +26,23 @@ $categories = get_terms( 'category', array('parent' => $parentId, 'hide_empty' =
         $categoryName = $category->name; 
         $featuredCategory = get_category_by_slug('featured');
         $featuredId = $featuredCategory->term_id;
+        $subcategories = get_categories(array('parent' => $categoryId));
+        $excludeIds = array();
+        for ($k = 0; $k < count($subcategories); $k++) {
+            $excludeIds[$k] = $subcategories[$k]->term_id;
+        }
+        array_push($featuredId, $excludeIds);
+
         
         if(is_user_logged_in()) {
-            $lastposts = get_posts( array('numberposts' => -1, 'category' => $categoryId, 'category__not_in' => $featuredId, 'post_status' => 'publish,private,draft,inherit') );
+            $lastposts = get_posts( array('numberposts' => -1, 'category' => $categoryId, 'category__not_in' => $excludeIds, 'post_status' => 'publish,private,draft,inherit') );
         } else {
-            $lastposts = get_posts( array('numberposts' => -1, 'category' => $categoryId, 'category__not_in' => $featuredId) );
+            $lastposts = get_posts( array('numberposts' => -1, 'category' => $categoryId, 'category__not_in' => $excludeIds) );
         }
     
 ?>
         <li class="parent"><a href="<?php echo get_category_link($categoryId); ?>"><?php echo $categoryName; ?></a>
             <ul class="sub-menu">
-            <?php $subcategories = get_categories(array('parent' => $categoryId)); ?>
             <?php if($subcategories): ?>
                 <?php $i = 1; ?>
                 <?php foreach($subcategories as $subcategory): ?>
