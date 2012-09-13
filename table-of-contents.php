@@ -75,6 +75,7 @@ if ( have_posts() ) : while ( have_posts() ) : the_post();
 
     <?php if(count($lastposts)==1): ?>
         <?php $post = $lastposts[0]; ?>
+        <?php setup_postdata($post); ?>
         <div class="solo eight columns offset-by-two">
             <h3><a href="<?php echo get_permalink(); ?>"><?php the_title(); ?></a></h3>
             <?php if(function_exists('coauthors')): ?>
