@@ -15,15 +15,17 @@ $curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : g
 
 <?php if(the_author_meta('description')): ?>
 
-<?php if($curauth->description): ?>
-
-<div class="author-bio">
-
-    <h2>About</h2>
-
-    <?php echo nl2br($curauth->description); ?>
+    <?php if($curauth->description): ?>
     
-</div>
+    <div class="author-bio">
+    
+        <h2>About</h2>
+    
+        <?php echo nl2br($curauth->description); ?>
+        
+    </div>
+    
+    <?php endif; ?>
 
 <?php endif; ?>
 
