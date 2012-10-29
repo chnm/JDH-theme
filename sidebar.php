@@ -26,12 +26,12 @@ $categories = get_terms( 'category', array('parent' => $parentId, 'hide_empty' =
         $categoryName = $category->name; 
         $featuredCategory = get_category_by_slug('featured');
         $featuredId = $featuredCategory->term_id;
-        $subcategories = get_categories(array('parent' => $categoryId));
+        $subcategories = get_categories(array('parent' => $categoryId, 'hide_empty' => 0));
         $excludeIds = array();
         for ($k = 0; $k < count($subcategories); $k++) {
             $excludeIds[$k] = $subcategories[$k]->term_id;
         }
-        array_push($featuredId, $excludeIds);
+        $excludeIds[] = $featuredId;
 
         
         if(is_user_logged_in()) {
@@ -49,7 +49,11 @@ $categories = get_terms( 'category', array('parent' => $parentId, 'hide_empty' =
                     <?php $subcategoryId = $subcategory->term_id; ?>
                     <li class="parent"><a href="<?php echo get_category_link($subcategoryId); ?>"><?php echo $i . ". " . $subcategory->name; ?></a>
                         <ul class="sub-menu">
-                        <?php $subcategoryPosts = get_posts( array('numberposts' => -1, 'category' => $subcategoryId, 'category__not_in' => $featuredId) ); ?>
+                        <? if (is_user_logged_in()): ?>
+                            <?php $subcategoryPosts = get_posts( array('numberposts' => -1, 'category' => $subcategoryId, 'category__not_in' => $featuredId, 'post_status' => 'publish,private,draft,inherit') ); ?>
+                        <?php else: ?>
+                            <?php $subcategoryPosts = get_posts( array('numberposts' => -1, 'category' => $subcategoryId, 'category__not_in' => $featuredId) ); ?>
+                        <?php endif; ?>
                         <?php jdh_nested_subcategories($subcategoryPosts, $currentPostId, $subcategoryId); ?>
                         </ul>
                     </li>

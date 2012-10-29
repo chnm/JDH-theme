@@ -137,7 +137,7 @@ foreach($categories as $category) :
     for ($k = 0; $k < count($subcategories); $k++) {
         $excludeIds[$k] = $subcategories[$k]->term_id;
     }
-    array_push($featuredId, $excludeIds);
+    $excludeIds[] = $featuredId;
 
     if ( is_user_logged_in() ) {
         $lastArgs = array('category' => $categoryId, 'category__not_in' => $excludeIds, 'post_status' => 'publish,private,draft,inherit', 'numberposts' => -1 );
@@ -164,7 +164,7 @@ foreach($categories as $category) :
             <?php if($subcategories): ?>
                 <?php $l = 1; ?>
                 <?php foreach($subcategories as $subcategory): ?>
-                    <?php $subcategoryPosts = get_posts(array('category' => $subcategory->term_id)); ?>
+                    <?php $subcategoryPosts = get_posts(array('category' => $subcategory->term_id, 'post_status' => 'publish,private,draft,inherit', 'numberposts' => -1 )); ?>
                     <h4><?php echo $l . '. ' . $subcategory->name; ?></h4>
                     <?php jdh_toc_list_posts($subcategoryPosts); ?>
                     <?php $l++; ?>
@@ -206,7 +206,7 @@ foreach($categories as $category) :
             <?php if($subcategories): ?>
                 <?php $l = 1; ?>
                 <?php foreach($subcategories as $subcategory): ?>
-                    <?php $subcategoryPosts = get_posts(array('category' => $subcategory->term_id)); ?>
+                    <?php $subcategoryPosts = get_posts(array('category' => $subcategory->term_id, 'post_status' => 'publish,private,draft,inherit', 'numberposts' => -1 )); ?>
                     <h4><?php echo $l . '. ' . $subcategory->name; ?></h4>
                     <?php jdh_toc_list_posts($subcategoryPosts); ?>
                     <?php $l++; ?>
